@@ -4,11 +4,6 @@ const store = Immutable.Map({
   rovers: Immutable.List(['Curiosity', 'Opportunity', 'Spirit']),
 });
 
-// const store2 = store.set('user', { name: 'john' });
-// console.log(store.get('user'));
-// console.log(store2.get('user'));
-// console.log(store.get('rovers').toJS()[0]);
-
 // add our markup to the page
 const root = document.getElementById('root');
 
@@ -56,7 +51,7 @@ const renderRoversBtns = (state) => {
   const rovers = state.get('rovers').toJS();
   return rovers
     .map((rover) => {
-      return `<button class="rover-btn">${rover}</button>`;
+      return `<button class="rover-btn ${rover}-btn">${rover}</button>`;
     })
     .join('');
 };
@@ -67,6 +62,14 @@ window.addEventListener('load', () => {
   //   document
   //     .querySelector('.rover')
   //     .addEventListener('click', (e) => console.log(e.target.textContent));
+
+  document.querySelectorAll('.rover-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      console.log(e.target.textContent);
+      getRoverData(e.target.textContent);
+    });
+    // console.log(btn);
+  });
 });
 
 // ------------------------------------------------------  COMPONENTS
@@ -124,12 +127,19 @@ window.addEventListener('load', () => {
 //   return data;
 // };
 
-const getRoverData = async (state) => {
-  const response = await fetch(`http://localhost:3000/rover`);
+const getRoverData = async (roverName) => {
+  //   console.log(roverName);
+  const response = await fetch(`http://localhost:3000/rover`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ roverName }),
+  });
 
   try {
-    const roverData = await response.json();
-    return roverData;
+    const { name, img_src, landing_date, launch_date, status } =
+      await response.json();
+    console.log(img_src);
+    // return roverData;
   } catch (error) {
     console.log(error);
   }
