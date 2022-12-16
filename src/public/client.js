@@ -1,6 +1,4 @@
 const store = Immutable.Map({
-  //user: { name: 'Youssef' },
-  //apod: 'test',
   rovers: Immutable.List(['Curiosity', 'Opportunity', 'Spirit']),
 });
 
@@ -18,7 +16,14 @@ const render = async (root, state) => {
 
 // create content
 const App = (state) => {
-  let { rovers, apod } = state;
+  const rovers = state.get('rovers').toJS();
+  return `
+    <header id='header'>${createHeader()}</header>
+    <main id='main'>
+      ${createMain(rovers)}
+    </main>
+    <footer id='footer'>${createFooter()}</footer>
+  `;
 
   //   return `
   //         <header></header>
@@ -40,11 +45,11 @@ const App = (state) => {
   //         </main>
   //         <footer></footer>
   //     `;
-  return `
-    <div class="btns-container">
-    ${renderRoversBtns(state)}
-    </div>
-  `;
+  // return `
+  //   <div class="btns-container">
+  //   ${renderRoversBtns(state)}
+  //   </div>
+  // `;
 };
 
 const renderRoversBtns = (state) => {
@@ -65,7 +70,6 @@ window.addEventListener('load', () => {
 
   document.querySelectorAll('.rover-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
-      console.log(e.target.textContent);
       getRoverData(e.target.textContent);
     });
     // console.log(btn);
@@ -73,6 +77,30 @@ window.addEventListener('load', () => {
 });
 
 // ------------------------------------------------------  COMPONENTS
+
+const createHeader = () => {
+  return `
+  <img src="" alt="" />
+  <h1 class="title">Mars Dashboard</h1>
+  `;
+};
+
+const createFooter = () => {
+  return `
+    <p>Copyright© 2022. Youssed Girgeis Built with LOVE ❤</p>
+  `;
+};
+
+const createMain = (rovers) => {
+  return `
+    <h2 class='main-title'>Discover Mars Rovers</h2>
+    <div class='btns-container'>
+      <button class='rover-btn'>${rovers[0]}</button>
+      <button class='rover-btn'>${rovers[1]}</button>
+      <button class='rover-btn'>${rovers[2]}</button>
+    </div>
+  `;
+};
 
 // Pure function that renders conditional information -- THIS IS JUST AN EXAMPLE, you can delete it.
 // const Greeting = (name) => {
