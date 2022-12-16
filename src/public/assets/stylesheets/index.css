@@ -7,6 +7,18 @@ body {
   font-family: 'Space Mono', monospace;
 }
 
+#root {
+  /* min-height: 100vh; */
+  position: relative;
+  min-height: 100vh;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #header {
   /* header styles */
   background-color: #2b3a55;
@@ -22,9 +34,9 @@ body {
   color: #f2e5e5;
 }
 
-#main {
+.rovers-menu {
   width: 90%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,17 +46,17 @@ body {
   border-radius: 8px;
 }
 
-#main .main-title {
+.rovers-menu .main-title {
   margin-bottom: 1rem;
   font-size: 1.2rem;
   color: #f2e5e5;
 }
 
-#main .btns-container {
+.rovers-menu .btns-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 80%;
+  width: 90%;
 }
 
 .rover-btn {
@@ -65,20 +77,33 @@ body {
   background-color: #ff4343;
 }
 
-#root {
-  /* min-height: 100vh; */
+.rover-data {
+  width: 90%;
+  margin-bottom: 8rem;
+}
+
+.rover-img {
+  width: 100%;
+  max-height: 300px;
+  display: block;
+}
+
+.rover-info {
+  padding: 1rem;
+  background-color: #fce38a;
+  font-size: 0.9rem;
+  color: #2b3a55;
 }
 
 #footer {
   /* footer styles */
   background-color: #2b3a55;
-  /* color: #ff7777; */
   color: #f2e5e5;
   text-align: center;
   padding: 2rem 0;
-  /* position: fixed;
+  position: absolute;
   bottom: 0;
-  width: 100%; */
+  width: 100%;
   font-size: 0.8rem;
 }
 

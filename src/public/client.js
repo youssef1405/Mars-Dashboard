@@ -23,25 +23,20 @@ const App = (state) => {
   return `
     <header id='header'>${createHeader()}</header>
     <main id='main'>
-      ${createMain(rovers)}
+      ${createMenu(rovers)}
+
+      ${state.get('name') ? displayRover(state) : ''}
     </main>
-    <section class='rover-data'>
-    ${state.get('name') ? displayRover(state) : ''}
-    </section>
+   
+    
+
     <footer id='footer'>${createFooter()}</footer>
   `;
 };
 
-// listening for load event because page should load before any JS is called
-// window.addEventListener('load', () => {
-
-// });
-
 const handleClick = async (e) => {
   if (e.textContent) {
     const newState = await getRoverData(e.textContent);
-    //updateStore(store, newState);
-    //console.log(store.toJS());
     render(root, updateStore(store, newState));
   }
 };
@@ -69,12 +64,14 @@ const createBtns = (rovers) => {
   return btns.join(' ');
 };
 
-const createMain = (rovers) => {
+const createMenu = (rovers) => {
   return `
-    <h2 class='main-title'>Discover Mars Rovers</h2>
-    <div class='btns-container'>
-      ${createBtns(rovers)}
-    </div>
+    <section class="rovers-menu">
+      <h2 class='main-title'>Discover Mars Rovers</h2>
+      <div class='btns-container'>
+        ${createBtns(rovers)}
+      </div>
+    </section>
   `;
 };
 
@@ -83,20 +80,22 @@ const displayRover = (state) => {
   console.log(state.get('name'));
   console.log(state.get('rovers'));
   return `
-    <div>
-      <img src="" alt="">
+    <section class="rover-data">
+      <img src="${state.get('img_src')}" class="rover-img" alt="">
       <div class="rover-info">
-        <div class="rover-name">Rover: ${state.get('name')}</div>
-        <div class="img-date">Image Taken on: ${state.get('earth_date')}</div>
-        <div class="rover-status">Status: ${state.get('status')}</div>
-        <div class="rover-launch-date">Launch Date: ${state.get(
+        <div class="rover-name"><b>Rover:</b> ${state.get('name')}</div>
+        <div class="img-date"><b>Image Date:</b> ${state.get(
+          'earth_date'
+        )}</div>
+        <div class="rover-status"><b>Status:</b> ${state.get('status')}</div>
+        <div class="rover-launch-date"><b>Launch Date:</b> ${state.get(
           'launch_date'
         )}</div>
-        <div class="rover-landing-date">Landing Date: ${state.get(
+        <div class="rover-landing-date"><b>Landing Date:</b> ${state.get(
           'landing_date'
         )}</div>
       </div>
-    </div>
+    </section>
   `;
 };
 
@@ -114,4 +113,7 @@ const getRoverData = async (roverName) => {
   }
 };
 
-render(root, store);
+// listening for load event because page should load before any JS is called
+window.addEventListener('load', () => {
+  render(root, store);
+});
