@@ -56,13 +56,19 @@ const createFooter = () => {
   `;
 };
 
+const createBtns = (rovers) => {
+  const btns = rovers.map(
+    (rover) =>
+      `<button class='rover-btn' onclick='handleClick(this)'>${rover}</button>`
+  );
+  return btns.join(' ');
+};
+
 const createMain = (rovers) => {
   return `
     <h2 class='main-title'>Discover Mars Rovers</h2>
     <div class='btns-container'>
-      <button class='rover-btn' onclick='handleClick(this)'>${rovers[0]}</button>
-      <button class='rover-btn' onclick='handleClick(this)'>${rovers[1]}</button>
-      <button class='rover-btn' onclick='handleClick(this)'>${rovers[2]}</button>
+      ${createBtns(rovers)}
     </div>
   `;
 };
