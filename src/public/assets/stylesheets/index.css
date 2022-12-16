@@ -60,7 +60,7 @@ body {
 }
 
 .rover-btn {
-  background-color: #ff7777;
+  background-color: tomato;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -74,7 +74,7 @@ body {
 }
 
 .rover-btn:hover {
-  background-color: #ff4343;
+  background-color: #6d2c21;
 }
 
 .rover-data {
@@ -90,9 +90,10 @@ body {
 
 .rover-info {
   padding: 1rem;
-  background-color: #fce38a;
+  background-color: #526b99;
   font-size: 0.9rem;
-  color: #2b3a55;
+  color: #f2e5e5;
+  border: 1px solid #bbbbbb;
 }
 
 #footer {

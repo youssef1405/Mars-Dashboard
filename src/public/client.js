@@ -1,4 +1,6 @@
 let store = Immutable.Map({
+  headerTitle: 'Mars Dashboard',
+  menuTitle: 'Discover Mars Rovers',
   rovers: Immutable.List(['Curiosity', 'Opportunity', 'Spirit']),
 });
 
@@ -6,10 +8,8 @@ let store = Immutable.Map({
 const root = document.getElementById('root');
 
 const updateStore = (store, newState) => {
-  // store = Object.assign(store, newState);
   let updatedStore = store.merge(newState);
   console.log(updatedStore.toJS());
-  // render(root, updatedStore);
   return updatedStore;
 };
 
@@ -17,36 +17,24 @@ const render = async (root, state) => {
   root.innerHTML = App(state);
 };
 
-// create content
+/*--------------------- BEGIN COMPONENTS SECTION-------------------*/
+
 const App = (state) => {
   const rovers = state.get('rovers').toJS();
   return `
-    <header id='header'>${createHeader()}</header>
+    <header id='header'>${createHeader(state.get('headerTitle'))}</header>
     <main id='main'>
-      ${createMenu(rovers)}
-
-      ${state.get('name') ? displayRover(state) : ''}
+      ${createMenu(rovers, state.get('menuTitle'))}
+      ${state.get('name') ? createRoverSection(state) : ''}
     </main>
-   
-    
-
     <footer id='footer'>${createFooter()}</footer>
   `;
 };
 
-const handleClick = async (e) => {
-  if (e.textContent) {
-    const newState = await getRoverData(e.textContent);
-    render(root, updateStore(store, newState));
-  }
-};
-
-// ------------------------------------------------------  COMPONENTS
-
-const createHeader = () => {
+const createHeader = (title) => {
   return `
   <img src="" alt="" />
-  <h1 class="title">Mars Dashboard</h1>
+  <h1 class="title">${title}</h1>
   `;
 };
 
@@ -64,10 +52,10 @@ const createBtns = (rovers) => {
   return btns.join(' ');
 };
 
-const createMenu = (rovers) => {
+const createMenu = (rovers, menuTitle) => {
   return `
     <section class="rovers-menu">
-      <h2 class='main-title'>Discover Mars Rovers</h2>
+      <h2 class='main-title'>${menuTitle}</h2>
       <div class='btns-container'>
         ${createBtns(rovers)}
       </div>
@@ -75,10 +63,7 @@ const createMenu = (rovers) => {
   `;
 };
 
-const displayRover = (state) => {
-  console.log(state.toJS());
-  console.log(state.get('name'));
-  console.log(state.get('rovers'));
+const createRoverSection = (state) => {
   return `
     <section class="rover-data">
       <img src="${state.get('img_src')}" class="rover-img" alt="">
@@ -97,6 +82,15 @@ const displayRover = (state) => {
       </div>
     </section>
   `;
+};
+
+/*--------------------- END COMPONENTS SECTION-------------------*/
+
+const handleClick = async (e) => {
+  if (e.textContent) {
+    const newState = await getRoverData(e.textContent);
+    await render(root, updateStore(store, newState));
+  }
 };
 
 const getRoverData = async (roverName) => {

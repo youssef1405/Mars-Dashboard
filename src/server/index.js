@@ -12,8 +12,7 @@ app.use(bodyParser.json());
 
 app.use('/', express.static(path.join(__dirname, '../public')));
 
-// your API calls
-
+// API calls
 app.post('/rover', async (req, res) => {
   console.log(req.body);
   const apiUrl = `https://api.nasa.gov/mars-photos/api/v1/rovers/${req.body.roverName}/photos?sol=1000&api_key=${process.env.API_KEY}`;
