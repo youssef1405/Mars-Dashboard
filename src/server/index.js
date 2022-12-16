@@ -33,7 +33,9 @@ app.post('/rover', async (req, res) => {
   try {
     const response = await fetch(apiUrl);
     const roverData = await response.json();
-    res.send(roverData['photos'][0]);
+    const { rover, img_src, earth_date } = roverData['photos'][0];
+    const { name, landing_date, launch_date, status } = rover;
+    res.send({ name, img_src, landing_date, launch_date, status, earth_date });
   } catch (error) {
     console.log(error);
   }
