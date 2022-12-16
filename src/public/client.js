@@ -1,4 +1,4 @@
-const store = Immutable.Map({
+let store = Immutable.Map({
   rovers: Immutable.List(['Curiosity', 'Opportunity', 'Spirit']),
 });
 
@@ -7,9 +7,10 @@ const root = document.getElementById('root');
 
 const updateStore = (store, newState) => {
   // store = Object.assign(store, newState);
-  const updatedStore = store.merge(newState);
+  let updatedStore = store.merge(newState);
   console.log(updatedStore.toJS());
-  render(root, store);
+  // render(root, updatedStore);
+  return updatedStore;
 };
 
 const render = async (root, state) => {
@@ -24,6 +25,9 @@ const App = (state) => {
     <main id='main'>
       ${createMain(rovers)}
     </main>
+    <section class='rover-data'>
+    ${state.get('name') ? displayRover(state) : ''}
+    </section>
     <footer id='footer'>${createFooter()}</footer>
   `;
 };
@@ -36,8 +40,9 @@ const App = (state) => {
 const handleClick = async (e) => {
   if (e.textContent) {
     const newState = await getRoverData(e.textContent);
-    console.log(newState);
-    updateStore(store, newState);
+    //updateStore(store, newState);
+    //console.log(store.toJS());
+    render(root, updateStore(store, newState));
   }
 };
 
@@ -69,6 +74,28 @@ const createMain = (rovers) => {
     <h2 class='main-title'>Discover Mars Rovers</h2>
     <div class='btns-container'>
       ${createBtns(rovers)}
+    </div>
+  `;
+};
+
+const displayRover = (state) => {
+  console.log(state.toJS());
+  console.log(state.get('name'));
+  console.log(state.get('rovers'));
+  return `
+    <div>
+      <img src="" alt="">
+      <div class="rover-info">
+        <div class="rover-name">Rover: ${state.get('name')}</div>
+        <div class="img-date">Image Taken on: ${state.get('earth_date')}</div>
+        <div class="rover-status">Status: ${state.get('status')}</div>
+        <div class="rover-launch-date">Launch Date: ${state.get(
+          'launch_date'
+        )}</div>
+        <div class="rover-landing-date">Landing Date: ${state.get(
+          'landing_date'
+        )}</div>
+      </div>
     </div>
   `;
 };

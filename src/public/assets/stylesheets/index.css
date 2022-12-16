@@ -76,9 +76,9 @@ body {
   color: #f2e5e5;
   text-align: center;
   padding: 2rem 0;
-  position: fixed;
+  /* position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 100%; */
   font-size: 0.8rem;
 }
 
