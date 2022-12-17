@@ -44,6 +44,7 @@ body {
   padding: 2rem 0;
   background-color: #2b3a55;
   border-radius: 8px;
+  max-width: 600px;
 }
 
 .rovers-menu .main-title {
@@ -52,7 +53,7 @@ body {
   color: #f2e5e5;
 }
 
-.rovers-menu .btns-container {
+.btns-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -71,6 +72,7 @@ body {
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 2px;
+  text-align: center;
 }
 
 .rover-btn:hover {
@@ -80,6 +82,7 @@ body {
 .rover-data {
   width: 90%;
   margin-bottom: 8rem;
+  max-width: 600px;
 }
 
 .rover-img {
@@ -114,12 +117,59 @@ body {
 /* -------------------  TABLET  --------------------- */
 @media (min-width: 768px) {
   /* use mobile */
+  .rovers-menu {
+    max-width: 700px;
+  }
+
+  .rover-btn {
+    width: 140px;
+    height: 140px;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    /* color: #000; */
+  }
+
+  .Curiosity-btn {
+    background-image: url('./images/curiosity.jpg');
+    background-size: cover;
+  }
+
+  .Opportunity-btn {
+    background-image: url('./images/opp.jpg');
+    background-size: cover;
+  }
+
+  .Spirit-btn {
+    background-image: url('./images/spirit.jpg');
+    background-size: cover;
+  }
+
+  .btns-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  #footer .copyright {
+    font-size: 0.8rem;
+  }
 }
 
 /* -------------------  DESKTOP  -------------------- */
 
 @media (min-width: 1224px) {
   /* use mobile */
+  .rovers-menu {
+    max-width: 800px;
+  }
+
+  .rover-btn {
+    width: 200px;
+    height: 200px;
+  }
+  #footer .copyright {
+    font-size: 1rem;
+  }
 }
 
 /* -------------------  LARGE SCREENS  -------------- */

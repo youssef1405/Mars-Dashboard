@@ -105,7 +105,7 @@ const createHtml = (elem) => {
  */
 const createBtns = (rovers) => {
   const btns = rovers.map(
-    (rover) => `<button class='rover-btn''>${rover}</button>`
+    (rover) => `<div class="rover-btn ${rover}-btn">${rover}</div>`
   );
   return btns.join(' ');
 };
