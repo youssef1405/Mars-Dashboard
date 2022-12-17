@@ -128,6 +128,11 @@ body {
     /* align-items: center; */
     justify-content: center;
     /* color: #000; */
+    transition: transform 0.5s;
+  }
+
+  .rover-btn:hover {
+    transform: scale(1.1);
   }
 
   .Curiosity-btn {
