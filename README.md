@@ -6,6 +6,13 @@ A Mars rover dashboard that consumes the NASA API. The dashboard will allow the 
 
 ## Screenshots
 
+### Desktop 
+![image](https://user-images.githubusercontent.com/18706769/208216563-b1adbd12-78ae-48ab-8163-1ac8d9bb6d48.png)
+
+### Mobile
+![image](https://user-images.githubusercontent.com/18706769/208216600-6ed1e9b7-43c5-4294-beb2-4d78e9c6dff9.png)
+
+
 ## Installation
 
 - Clone the project
