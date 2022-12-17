@@ -9,8 +9,8 @@ const root = document.getElementById('root');
 
 /**
  * updates the state of the app based on the rover selected by the user
- * @param {*} store the state of the app
- * @param {*} newState rover data
+ * @param {object} store the state of the app
+ * @param {object} newState rover data
  * @returns return an updated state
  */
 const updateStore = (store, newState) => {
@@ -19,8 +19,8 @@ const updateStore = (store, newState) => {
 
 /**
  * add html to the root element by calling the App() function
- * @param {*} root an elements containing all the compoenents of the app
- * @param {*} state state of the app
+ * @param {Object} root an elements containing all the compoenents of the app
+ * @param {Object} state state of the app
  */
 const render = async (root, state) => {
   root.innerHTML = App(state);
@@ -35,13 +35,13 @@ const render = async (root, state) => {
  * then re-render the components of the app
  */
 const handleClick = async (e) => {
-  const newState = await getRoverData(e.target.textContent);
+  const newState = await getRandomRoverData(e.target.textContent, getRoverData);
   render(root, updateStore(store, newState));
 };
 
 /**
  * gets rover data
- * @param {*} roverName
+ * @param {string} roverName
  * @returns data about a rover
  */
 const getRoverData = async (roverName) => {
@@ -58,6 +58,21 @@ const getRoverData = async (roverName) => {
   }
 };
 
+/**
+ * First higher order function
+ * this function returns a random rover object instead of the
+ * first object in the returned array from the API
+ * @param {string} roverName: name of the rover
+ * @param {function} callBack: getRoverData() function
+ */
+const getRandomRoverData = async (roverName, callBack) => {
+  const roverObject = await callBack(roverName); // callback here is the getRoverData function
+  const randomNumber = Math.floor(Math.random() * roverObject['photos'].length);
+  const { rover, img_src, earth_date } = roverObject['photos'][randomNumber];
+  const { name, landing_date, launch_date, status } = rover;
+  return { name, img_src, landing_date, launch_date, status, earth_date };
+};
+
 // listening for load event because page should load before any JS is called
 window.addEventListener('load', () => {
   render(root, store);
@@ -66,7 +81,7 @@ window.addEventListener('load', () => {
 /*--------------------- BEGIN COMPONENTS SECTION-------------------*/
 /**
  * populates the root element with html
- * @param {*} state state of the app
+ * @param {Object} state state of the app
  * @returns html of all html of the app
  */
 const App = (state) => {
@@ -91,7 +106,7 @@ const App = (state) => {
   `;
 };
 
-// higher order function to create the header and footer
+// Second higher order function to create the header and footer
 const createHtml = (elem) => {
   return (text, className) => {
     return `<${elem} class="${className}">${text}</${elem}>`;
@@ -112,8 +127,8 @@ const createBtns = (rovers) => {
 
 /**
  * creates a menu based on the buttons created above
- * @param {*} rovers array of rovers names
- * @param {*} menuTitle title of the menu
+ * @param {array} rovers array of rovers names
+ * @param {string} menuTitle title of the menu
  * @returns html container containing the the button created in the function above
  */
 const createMenu = (rovers, menuTitle) => {
